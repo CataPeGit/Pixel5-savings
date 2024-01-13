@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {createContext, useContext} from 'react';
+import {Route, Routes} from "react-router-dom";
+import {createTheme, ThemeProvider} from "@mui/material/styles";
+import {PaletteMode, useMediaQuery} from "@mui/material";
+import Category from './Components/Purchase/Purchase';
+import getDesignTokens from './Components/PageLayout/theme';
+import Categories from './Components/Purchases/purchases';
+import Homepage from './Components/Homepage/homepage';
+
+export const ColorModeContext = React.createContext({
+    toggleColorMode: () => {
+    }
+});
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [mode, setMode] = React.useState<PaletteMode>('dark');
+    const colorMode = React.useMemo(
+        () => ({
+            // The dark mode switch would invoke this method
+            toggleColorMode: () => {
+                setMode((prevMode: PaletteMode) =>
+                    prevMode === 'light' ? 'dark' : 'light',
+                );
+            },
+        }),
+        [],
+    );
+
+    // Update the theme only if the mode changes
+    const theme = React.useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
+
+
+    return (
+    <ThemeProvider theme={theme}>
+            <Homepage></Homepage>
+      </ThemeProvider>
+    );
 }
 
 export default App;
+
