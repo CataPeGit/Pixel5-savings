@@ -7,6 +7,7 @@ import getDesignTokens from './Components/PageLayout/theme';
 import Categories from './Components/Purchases/purchases';
 import Homepage from './Components/Homepage/homepage';
 import LoginPage from './Components/LoginPage/loginPage';
+import Register from './Components/RegisterPage/register';
 
 export const ColorModeContext = React.createContext({
     toggleColorMode: () => {
@@ -33,7 +34,7 @@ function App() {
 
     return (
     <ThemeProvider theme={theme}>
-            <LoginPage></LoginPage>
+            <Register></Register>
       </ThemeProvider>
     );
 }
