@@ -1,15 +1,20 @@
 import { useState } from 'react';
 import { Button, TextField, Typography, Container, CssBaseline, Avatar } from '@mui/material';
 import { useTheme } from '@emotion/react';
-
-
+import { UseDispatch, useDispatch } from 'react-redux';
+import loginWithGoogle from '../../redux/reducers/authentification/actions/login/login';
+import store from '../../redux/store/store';
 
 const LoginPage = () => {
+    const dispatch = useDispatch<typeof store.dispatch>();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const theme = useTheme();
 
+    const handleLogin  = () => {
+        dispatch(loginWithGoogle({email,password}))
+    }
     return (
         <Container maxWidth="sm">
         <CssBaseline />
@@ -38,7 +43,7 @@ const LoginPage = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
             />
-            <Button type="submit" fullWidth variant="contained" sx={{ background: '#9d9a0c'}}>
+            <Button type="submit" fullWidth variant="contained" sx={{ background: '#9d9a0c'}} onClick={handleLogin}>
                 Sign In
             </Button>
         </Container>
