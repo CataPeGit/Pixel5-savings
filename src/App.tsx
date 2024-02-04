@@ -22,7 +22,7 @@ function App() {
             toggleColorMode: () => {
                 setMode((prevMode: PaletteMode) =>
                     prevMode === 'light' ? 'dark' : 'light',
-                );
+                ); 
             },
         }),
         [],
@@ -34,7 +34,7 @@ function App() {
 
     return (
     <ThemeProvider theme={theme}>
-            <Register></Register>
+            <Homepage></Homepage>
       </ThemeProvider>
     );
 }
