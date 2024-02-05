@@ -1,5 +1,4 @@
 import React, {createContext, useContext} from 'react';
-import {Route, Routes} from "react-router-dom";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import {PaletteMode, useMediaQuery} from "@mui/material";
 import Category from './Components/Purchase/Purchase';
@@ -8,6 +7,8 @@ import Categories from './Components/Purchases/purchases';
 import Homepage from './Components/Homepage/homepage';
 import LoginPage from './Components/LoginPage/loginPage';
 import Register from './Components/RegisterPage/register';
+import { useSelector } from 'react-redux';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 
 export const ColorModeContext = React.createContext({
@@ -16,6 +17,7 @@ export const ColorModeContext = React.createContext({
 });
 
 function App() {
+    const isLoggedIn = useSelector((state:any) => state.authentification.isLoggedIn);
     const [mode, setMode] = React.useState<PaletteMode>('dark');
     const colorMode = React.useMemo(
         () => ({
@@ -23,7 +25,7 @@ function App() {
             toggleColorMode: () => {
                 setMode((prevMode: PaletteMode) =>
                     prevMode === 'light' ? 'dark' : 'light',
-                );
+                ); 
             },
         }),
         [],
@@ -34,11 +36,15 @@ function App() {
 
 
     return (
-    <ThemeProvider theme={theme}>
-            {/* <LoginPage></LoginPage> */}
-            {/* <Register></Register> */}
-            <Homepage></Homepage>
-      </ThemeProvider>
+        <ThemeProvider theme={theme}>
+      <Router>
+        <Routes>
+          <Route path="/login" element={isLoggedIn ? <Navigate to="/" /> : <LoginPage />} />
+          <Route path="/" element={isLoggedIn ? <Homepage /> : <Navigate to="/login" />} />
+          {/* Additional routes can be added as needed */}
+        </Routes>
+      </Router>
+    </ThemeProvider>
     );
 }
 

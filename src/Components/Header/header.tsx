@@ -103,7 +103,7 @@ const Header = () => {
       <Box className="header-container">
         <ul className="header-list">
           <Typography style={{ color: '#ccc'}}>LOGO GOES HERE</Typography>
-          <TextField id="outlined-basic" label="Search" variant="outlined" />
+          {/* <TextField id="outlined-basic" label="Search" variant="outlined" /> */}
         </ul>
         <ul className="header-list">
           <Dropdown />

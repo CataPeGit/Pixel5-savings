@@ -4,6 +4,9 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Purchases from '../Purchases/purchases';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { changeTab } from '../../redux/reducers/categories/categoriesSlice';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -39,10 +42,16 @@ function a11yProps(index: number) {
 }
 
 const CategoryList = () => {
-  const [value, setValue] = React.useState(0);
+  const dispatch = useDispatch();
+  
+  const tabSelected = useSelector((state: any) => state.categories.selectedTab);
+  const categoriesNumbers = useSelector((state: any) => state.categories.categoriesNumbers);
+  const category = categoriesNumbers[tabSelected];
+  console.log(category);
+
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+    dispatch(changeTab(newValue));
   };
 
   return (
@@ -52,23 +61,23 @@ const CategoryList = () => {
       <Tabs
         orientation="vertical"
         variant="scrollable"
-        value={value}
+        value={tabSelected}
         onChange={handleChange}
         aria-label="Vertical tabs example"
         sx={{ borderRight: 1, borderColor: 'divider' }}
       >
-        <Tab label="Category One" {...a11yProps(0)} />
-        <Tab label="Category Two" {...a11yProps(1)} />
-        <Tab label="Category Three" {...a11yProps(2)} />
+        <Tab label="Food" {...a11yProps(0)} />
+        <Tab label="Health" {...a11yProps(1)} />
+        <Tab label="Utilities" {...a11yProps(2)} />
       </Tabs>
-      <TabPanel value={value} index={0}>
-        <Purchases />
+      <TabPanel value={tabSelected} index={0}>
+        <Purchases  category={category}/>
       </TabPanel>
-      <TabPanel value={value} index={1}>
-        <Purchases />
+      <TabPanel value={tabSelected} index={1}>
+        <Purchases category={category}/>
       </TabPanel>
-      <TabPanel value={value} index={2}>
-          <Purchases />
+      <TabPanel value={tabSelected} index={2}>
+          <Purchases category={category}/>
       </TabPanel>
     </Box>
   );
