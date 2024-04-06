@@ -56,8 +56,12 @@ const CategoryList = () => {
 
   return (
     <Box
-      sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex' }}
-    >
+      sx={{ 
+        flexGrow: 1,
+        bgcolor: 'background.paper',
+        display: 'flex',
+        borderRadius: "12px"
+    }}>
       <Tabs
         orientation="vertical"
         variant="scrollable"

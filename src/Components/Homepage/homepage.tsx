@@ -1,6 +1,6 @@
 
 // src/components/Post.tsx
-import { Box } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import React from 'react';
 import Categories from '../Purchases/purchases';
 import StatusCard from '../StatusCard/StatusCard';
@@ -11,6 +11,7 @@ import './Homepage.scss';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import fetchExpenses from '../../redux/reducers/categories/actions/fetchExpenses';
+import Footer from '../Footer/footer';
 
 
 const Homepage = () => {
@@ -24,7 +25,12 @@ const Homepage = () => {
     <Box sx={{height: 968, background: 'rgb(32, 33, 36)'}}>
         <Header></Header>
         <StatusCard></StatusCard>
-        <CategoryList></CategoryList>
+        <Container sx={{
+          border:"50px",
+        }}>
+          <CategoryList></CategoryList>          
+        </Container>
+        <Footer></Footer>
     </Box>
   );
 };
